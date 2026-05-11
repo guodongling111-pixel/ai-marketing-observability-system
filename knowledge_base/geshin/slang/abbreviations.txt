@@ -1,0 +1,75 @@
+# 原神专业术语与缩略语英-中对照表
+
+## 战斗系统
+- **ATK**：攻击力
+- **DEF**：防御力
+- **HP**：生命值
+- **CR / CD**：暴击率 / 暴击伤害（Crit Rate / Crit Damage）
+- **ER**：元素充能效率（Energy Recharge）
+- **EM**：元素精通（Elemental Mastery）
+- **DMG**：伤害（Damage）
+- **RES**：抗性（Resistance）
+- **AoE**：范围伤害（Area of Effect）
+- **GCD**：公共冷却时间（Global Cooldown，多用于元素反应计时）
+
+## 元素反应
+- **蒸发**：水+火
+- **融化**：冰+火
+- **超载**：火+雷
+- **感电**：水+雷
+- **冻结**：水+冰
+- **扩散**：风+任意元素
+- **结晶**：岩+任意元素
+- **超绽放/烈绽放**：草+雷/火+水形成的种门反应
+- **激化**：草+雷
+
+## 游戏机制简称
+- **Q**：元素爆发（大招，在PC端默认按Q）
+- **E**：元素战技（小技能）
+- **A/Aa**：普攻/重击（Attack / Aim shot）
+- **CD**：技能冷却时间
+- **SP**：一些角色特殊能量（如雷电将军愿力、芙宁娜气氛值）
+- **充能**：积累元素能量
+- **站场/离场**：On-field / Off-field
+
+## 养成与数值
+- **LV**：等级
+- **Asc**：突破（Ascension）
+- **Talent**：天赋等级
+- **Artis / Artifacts**：圣遗物
+- **Main stat / Sub stat**：主词条/副词条
+- **Roll**：强化圣遗物时词条提升次数
+- **Mora**：摩拉（货币）
+- **EXP**：经验
+- **BP**：纪行（Battle Pass，大月卡）
+- **WM**：空月祝福（Welkin Moon，小月卡）
+
+## 角色简称（常用）
+- **Zhongli**：钟离（帝君）
+- **Raiden / Shogun**：雷电将军
+- **Kazuha**：万叶
+- **Bennett**：班尼特
+- **XQ / Xingqiu**：行秋
+- **Yelan**：夜兰
+- **Nahida**：纳西妲
+- **Furina**：芙宁娜
+- **Neuv**：那维莱特
+- **AlHaitham**：艾尔海森
+- **Wrio**：莱欧斯利
+
+## 付费/活动
+- **GC**：创世结晶（Genesis Crystals）
+- **Primo**：原石
+- **Fates**：命运（纠缠/相遇）
+- **Event**：活动
+- **BP**：纪行
+- **WM**：月卡
+- **首充双倍**：First top-up bonus
+
+## 平台/版本
+- **PS/PSN**：PlayStation
+- **PC**：电脑端
+- **Mobile**：手机端
+- **ver / v**：版本
+- **patch**：更新补丁
+- **Hotfix**：热修复
