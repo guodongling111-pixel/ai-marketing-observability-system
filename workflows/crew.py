@@ -14,112 +14,96 @@ from agents.manager_agent import manager_agent
 os.makedirs("outputs", exist_ok=True)
 
 # 读取评论数据
-df = pd.read_csv("data/genshin_comments.csv")
+df = pd.read_csv("data/comments.csv")
 comments = "\n".join(df["comment"].tolist())
 
 
 # 定义任务
+# 0. 先在项目头部定义配置变量（以后改这里即可）
+GAME_NAME = "未定事件簿"
+# 针对不同游戏的示例：未定用“左然卡面”，原神用“丝柯克建模”
+POSITIVE_EXAMPLE = "左然这幅私语卡面绝了，眼神拉丝！" 
+NEGATIVE_EXAMPLE = "这次异常调查的掉率也太低了吧，体力根本不够用。"
+
+# 1. 泛化后的 sentiment_task
 sentiment_task = Task(
-    description="""
-你是一名专业的《原神》社区舆情分析师。
+    description=f"""
+你是一名专业的《{GAME_NAME}》社区舆情分析师。
 
 请分析以下玩家评论：
 
-""" + comments + """
+""" + comments + f"""
 
 请完成：
-
 1. 玩家整体情绪
-2. 高频抱怨
-3. 高频赞美
-4. 当前舆情风险
-5. 玩家最关注角色
+2. 高频抱怨点（如：掉率、体力机制、剧情逻辑等）
+3. 高频赞美点（如：卡面画质、配音表现、人设细节等）
+4. 当前舆情风险（如：玩家退游倾向、集体维权风险）
+5. 玩家最关注的角色（请准确识别游戏中的核心人物）
 
 【情绪分类规则】
 
 1. positive_topics 只能包含：
-- 喜欢
-- 满意
-- 赞美
-- 震撼
-- 优秀
-- 期待
-- 认可
+- 喜欢、满意、赞美、震撼、优秀、期待、认可、心动、还原
 
 2. negative_topics 只能包含：
-- 不满
-- 抱怨
-- 生气
-- 坐牢
-- 氪金压力
-- 无聊
-- 削弱
-- 失望
+- 不满、抱怨、生气、坐牢、氪金压力、无聊、削弱、失望、人设崩坏
 
 3. 不允许：
 - 正向情绪放入 negative_topics
 - 负向情绪放入 positive_topics
 
 4. 示例：
+评论："{POSITIVE_EXAMPLE}"
+应归类为：positive_topics
 
-评论：
-"丝柯克建模太强了"
-
-应归类为：
-positive_topics
-
-评论：
-"剧情节奏太拖了"
-
-应归类为：
-negative_topics
+评论："{NEGATIVE_EXAMPLE}"
+应归类为：negative_topics
 
 【重要要求】
-
 1. 只能输出合法 JSON
-2. 不要输出 markdown
-3. 不要输出 ```json
-4. 不要输出解释
-5. 所有 key 必须使用双引号
-6. 输出必须可被 json.loads() 解析
+2. 不要输出 markdown 格式代码块
+3. 不要输出 ```json 或任何前导文本
+4. 不要输出任何解释文字
+5. 所有 key 必须使用英文双引号
+6. 确保输出能被 json.loads() 直接解析
 
 输出格式如下：
-
-{
+{{
   "overall_sentiment": "",
   "negative_topics": [
-    {
+    {{
       "topic": "",
       "emotion": ""
-    }
+    }}
   ],
   "positive_topics": [
-    {
+    {{
       "topic": "",
       "emotion": ""
-    }
+    }}
   ],
   "risk_alerts": [
-    {
+    {{
       "risk": "",
       "suggestion": ""
-    }
+    }}
   ],
   "hot_characters": [
-    {
+    {{
       "character": "",
       "attention_level": ""
-    }
+    }}
   ]
-}
+}}
 """,
-    expected_output="JSON analysis of player sentiment.",
+    expected_output=f"JSON analysis of {GAME_NAME} player sentiment.",
     agent=sentiment_agent
 )
 
 trend_task = Task(
     description=f"""
-你将收到《原神》玩家评论 + 情绪分析结果。
+你将收到《{GAME_NAME}》玩家评论 + 情绪分析结果。
 
 【玩家评论】
 
@@ -171,7 +155,7 @@ trend_task = Task(
 
 marketing_task = Task(
     description=f"""
-你将收到《原神》玩家社区趋势分析报告。
+你将收到《{GAME_NAME}》玩家社区趋势分析报告。
 
 请基于该报告：
 
@@ -182,7 +166,7 @@ marketing_task = Task(
 
 【趋势分析报告】
 
-{trend_task}
+{{trend_task}}
 
 【生成要求】
 

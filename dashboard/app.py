@@ -5,12 +5,12 @@ from datetime import datetime
 
 # 页面配置
 st.set_page_config(
-    page_title="Teyvat Marketing Dashboard",
+    page_title="AI Game Marketing Dashboard",
     layout="wide"
 )
 
 # 标题
-st.title("🎮 Teyvat Marketing Multi-Agent Dashboard")
+st.title("🎮 Game Marketing Multi-Agent Dashboard")
 
 st.markdown("---")
 
@@ -18,7 +18,7 @@ st.markdown("---")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric("Game", "Genshin Impact")
+    st.metric("Game", "Impact")
 
 with col2:
     st.metric("System Status", "Running")
