@@ -1,0 +1,21 @@
+# 游戏任务配置表
+# 以后想加新游戏，直接在这里按格式增加即可
+
+tasks:
+  eggy_party:
+    game_name: "蛋仔派对"
+    positive_example: "这次联动的皮肤也太可爱了，手感贼好，一发入魂！"
+    negative_example: "乐园地图加载太慢了，抽奖保底也太深了，非酋流泪。"
+
+  wd_justice:
+    game_name: "未定事件簿"
+    positive_example: "左然这幅私语卡面绝了，眼神拉丝！"
+    negative_example: "这次异常调查的掉率也太低了吧，体力根本不够用。"
+
+  genshin:
+    game_name: "原神"
+    positive_example: "丝柯克建模真的惊艳到我了，动作模组好帅！"
+    negative_example: "圣遗物出货率太感人了，全是防御力。"
+
+# 当前要运行哪一个？改这里的 key 即可
+current_task: "eggy_party"

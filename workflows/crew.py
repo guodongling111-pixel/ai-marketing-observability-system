@@ -1,4 +1,5 @@
 import pandas as pd
+import yaml
 import os  # 放在最前面
 import json
 
@@ -9,6 +10,20 @@ from agents.sentiment_agent import sentiment_agent
 from agents.marketing_agent import marketing_agent
 from agents.trend_agent import trend_agent
 from agents.manager_agent import manager_agent
+
+
+# --- 新增：读取配置文件逻辑 ---
+def load_config():
+    with open('config.yaml', 'r', encoding='utf-8') as f:
+        config = yaml.safe_load(f)
+    current_task_key = config.get('current_task', 'eggy_party') # 默认选蛋仔
+    return config['tasks'][current_task_key]
+
+# 加载当前选中的游戏配置
+game_params = load_config()
+GAME_NAME = game_params['game_name']
+POSITIVE_EXAMPLE = game_params['positive_example']
+NEGATIVE_EXAMPLE = game_params['negative_example']
 
 # 自动创建 outputs 文件夹
 os.makedirs("outputs", exist_ok=True)
