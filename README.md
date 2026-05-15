@@ -2,7 +2,7 @@
 
 ### 🏗️ 系统定位
 
-AI-powered Multi-Agent Workflow System for **原神 (Genshin Impact) 社区营销运营**。  
+AI-powered Multi-Agent Workflow System for **游戏社区营销运营**。  
 目标：通过玩家评论分析、社区热点发现和自动生成营销文案，实现游戏运营智能化与 AI 驱动的决策闭环。
 
 ---
