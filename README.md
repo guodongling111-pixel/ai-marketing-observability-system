@@ -79,7 +79,7 @@ Sentiment Agent   Trend Agent   Marketing Agent
 ---
 
 ## 🛠️ 技术栈
-
+```
 | 模块              | 技术                             |
 | --------------- | ------------------------------ |
 | Multi-Agent     | CrewAI                         |
@@ -88,22 +88,34 @@ Sentiment Agent   Trend Agent   Marketing Agent
 | 数据处理            | pandas                         |
 | 可视化 & Dashboard | Streamlit / plotly / wordcloud |
 | 评论数据            | 小红书 / 抖音 / B站 CSV + Selenium   |
-
+```
 ---
-
 ## 🗂️ 项目目录结构
-
-```text
-teyvat-marketing-agent/
+```plaintext
+marketing-multiagent/
 ├── agents/
-│   ├── sentiment_prompt.txt
-│   ├── trend_prompt.txt
-│   └── marketing_prompt.txt
+│   ├── manager_agent.py
+│   ├── trend_agent.py
+│   ├── sentiment_agent.py
+│   └── marketing_agent.py
 ├── workflows/
 │   └── crew.py
 ├── data/
-│   └── genshin_comments.csv
+│   └── comments.csv
 ├── outputs/
+│   ├── audit/
+│   │   └── badcase.json
+│   ├── logs/
+│   │   ├── agent.log
+│   │   ├── system.log
+│   │   └── task.log
+│   ├── reports/
+│   │   ├── final_report.json
+│   │   ├── manager_report.json
+│   │   ├── marketing_report.json
+│   │   ├── sentiment_report.json
+│   │   └── trend_report.json
+│   ├── raw_output.txt
 │   ├── report.json
 │   └── wordcloud.png
 ├── dashboard/
@@ -114,7 +126,6 @@ teyvat-marketing-agent/
 ├── requirements.txt
 └── README.md
 ```
-
 > **说明**：`agents/` 目录仅存放 prompt 文件，实际逻辑由 Manager Agent 调用 workflow 执行
 
 ---
