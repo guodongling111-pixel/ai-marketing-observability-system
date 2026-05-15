@@ -26,7 +26,7 @@ manager_agent = Agent(
 并输出最终运营总结。
 """,
 
-    llm="ollama/qwen2.5",
+    llm="qwen2.5:7b",
 
     verbose=True
 )

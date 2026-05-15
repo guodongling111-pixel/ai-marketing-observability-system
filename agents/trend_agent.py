@@ -21,7 +21,7 @@ trend_agent = Agent(
     什么正在变热，而不是已经发生了什么。
     """,
 
-    llm="ollama/qwen2.5",
+    llm="qwen2.5:7b",
 
     verbose=True
 )

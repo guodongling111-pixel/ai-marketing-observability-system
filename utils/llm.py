@@ -1,7 +1,5 @@
-from langchain_community.llms import Ollama
+from langchain_community.chat_models import ChatOllama
 
-def get_llm():
-    llm = Ollama(
-        model="qwen2.5"
-    )
-    return llm
+llm = ChatOllama(
+    model="qwen2.5:7b"
+)

@@ -16,5 +16,5 @@ sentiment_agent = Agent(
 
     verbose=True,
 
-    llm="ollama/qwen2.5"
+    llm="qwen2.5:7b"
 )

@@ -26,6 +26,6 @@ marketing_agent = Agent(
     - **高点击率**：标题必须让人瞬间产生“他在和我说话”或“这个卡面必抽”的冲动。
     """,
 
-    llm="ollama/qwen2.5",
+    llm="qwen2.5:7b",
     verbose=True
 )

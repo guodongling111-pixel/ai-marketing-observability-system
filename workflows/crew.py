@@ -10,7 +10,8 @@ from agents.sentiment_agent import sentiment_agent
 from agents.marketing_agent import marketing_agent
 from agents.trend_agent import trend_agent
 from agents.manager_agent import manager_agent
-
+from dotenv import load_dotenv
+load_dotenv()
 
 # --- 新增：读取配置文件逻辑 ---
 def load_config():
@@ -392,52 +393,62 @@ with open(
         indent=2
     )
 
-# 转字符串
-raw_result = str(result)
+# --- 1. 强制保存原始输出 (保命符，最先执行) ---
+raw_final_string = str(result)
+os.makedirs("outputs/audit", exist_ok=True)
 
-# 自动补全 JSON
-if not raw_result.strip().endswith("}"):
-    raw_result += "\n}"
+with open("outputs/raw_output.txt", "w", encoding="utf-8") as f:
+    f.write(raw_final_string)
+print("\n[System] Raw output secured in outputs/raw_output.txt")
 
-# 保存 JSON 
-# 尝试解析 JSON
+# --- 2. 尝试解析并清理 JSON ---
 try:
-    parsed_result = json.loads(str(result))
-
+    # 自动补全可能缺失的反括号
+    processed_result = raw_final_string.strip()
+    if not processed_result.endswith("}"):
+        processed_result += "}"
     
+    # 关键修复：去掉大模型可能自带的 markdown 标记
+    processed_result = processed_result.replace("```json", "").replace("```", "").strip()
+    
+    parsed_result = json.loads(processed_result)
 
-    # 🚨 关键修复点
+    # 业务逻辑：截取营销方向
     if "marketing_angles" in parsed_result:
         parsed_result["marketing_angles"] = parsed_result["marketing_angles"][:2]
 
     with open("outputs/reports/final_report.json", "w", encoding="utf-8") as f:
-     json.dump(parsed_result, f, ensure_ascii=False, indent=2)
+        json.dump(parsed_result, f, ensure_ascii=False, indent=2)
 
-    print("\nJSON report saved successfully!")
+    print("✅ Final report saved successfully!")
 
 except Exception as e:
-    print("\nJSON parsing failed!")
-    print(e)
+    print(f"❌ JSON Parsing Failed: {e}")
+    
+    # --- 3. 安全追加 Badcase (防崩处理) ---
+    badcase_path = "outputs/audit/badcase.json"
+    
+    # 获取现有 badcases，如果文件不存在或损坏则初始化为空列表
+    current_badcases = []
+    if os.path.exists(badcase_path):
+        try:
+            with open(badcase_path, "r", encoding="utf-8") as f:
+                current_badcases = json.load(f)
+        except Exception:
+            current_badcases = []
 
-    # 保存原始输出方便 debug,badcase tracking
-    with open("outputs/raw_output.txt", "w", encoding="utf-8") as f:
-        f.write(str(result))
-
-    print("\nRaw output saved to outputs/raw_output.txt")
-
-    # 保存 badcase
-    badcase = {
+    # 追加当前 badcase
+    current_badcases.append({
         "error": str(e),
-        "input": comments,
-        "output": str(result),
-        "error_type": "json_parse_error",
-        "raw_output": raw_result
-    }
+        "game": GAME_NAME,
+        "time": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "raw_output": raw_final_string
+    })
 
-    with open("outputs/audit/badcase.json", "r", encoding="utf-8") as f:
-        badcases = json.load(f)
-
-        badcases.append(badcase)
-
-    with open("outputs/audit/badcase.json", "w", encoding="utf-8") as f:
-        json.dump(badcases, f, ensure_ascii=False, indent=2)
+    # 写入文件
+    try:
+        with open(badcase_path, "w", encoding="utf-8") as f:
+            json.dump(current_badcases, f, ensure_ascii=False, indent=2)
+        print(f"⚠️ Badcase tracking updated in {badcase_path}")
+    except Exception as final_e:
+        print(f"致命错误：连 Badcase 都存不进去! {final_e}")
