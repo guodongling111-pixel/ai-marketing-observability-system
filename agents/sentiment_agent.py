@@ -1,11 +1,11 @@
 from crewai import Agent
 
 sentiment_agent = Agent(
-    role="Genshin Community Sentiment Specialist",
+    role="Tears of Themis Community Sentiment Specialist",
 
     goal="""
     Analyze player emotions and dissatisfaction patterns
-    in Genshin Impact discussions.
+    in Tears of Themis Impact discussions.
     """,
 
     backstory="""

@@ -1,17 +1,51 @@
-import pandas as pd
-import yaml
-import os  # 放在最前面
+import os
+import sys
 import json
+import yaml
+import pandas as pd
 
+from dotenv import load_dotenv
 
+load_dotenv()
+
+# =========================
+# Runtime Logging
+# =========================
+
+os.makedirs(
+    "outputs/logs",
+    exist_ok=True
+)
+
+log_file = open(
+    "outputs/logs/agentruntime.log",
+    "a",
+    encoding="utf-8"
+)
+
+sys.stdout = log_file
+sys.stderr = log_file
+
+from datetime import datetime
+
+print(
+    f"\n\n===== NEW RUN {datetime.now()} =====\n"
+)
+
+# =========================
+# Crew Imports
+# =========================
 
 from crewai import Task, Crew
+
 from agents.sentiment_agent import sentiment_agent
 from agents.marketing_agent import marketing_agent
 from agents.trend_agent import trend_agent
 from agents.manager_agent import manager_agent
-from dotenv import load_dotenv
-load_dotenv()
+
+
+
+
 
 # --- 新增：读取配置文件逻辑 ---
 def load_config():
